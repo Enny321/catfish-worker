@@ -1,14 +1,11 @@
 export default {
   async fetch(request, env) {
-
-    // Allow requests from your Cloudflare Pages domain
     const corsHeaders = {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "POST, OPTIONS",
       "Access-Control-Allow-Headers": "Content-Type",
     };
 
-    // Handle preflight
     if (request.method === "OPTIONS") {
       return new Response(null, { headers: corsHeaders });
     }
@@ -17,7 +14,6 @@ export default {
       return new Response("Not allowed", { status: 405 });
     }
 
-    // ── Parse the submission ──
     let body;
     try {
       body = await request.json();
@@ -25,62 +21,91 @@ export default {
       return new Response("Bad request", { status: 400, headers: corsHeaders });
     }
 
-    // ── Store in KV (Cloudflare Key-Value storage) ──
-    // Each entry stored under key: "entry_<timestamp>_<random>"
-    const entryKey = `entry_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;
-    await env.SABII_ENTRIES.put(entryKey, JSON.stringify(body));
+    // ── Store in D1 Database ──
+    await env.DB.exec(
+      `INSERT INTO farmers 
+       (farm_name, location, farming_experience, farming_duration, current_stage, 
+        start_timeline, infrastructure, feed_budget_status, feed_budget_amount, 
+        availability, phone, biggest_problem, score, timestamp) 
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [
+        body["Name"] || "",
+        body["Location"] || "",
+        body["Farming Experience"] || "",
+        body["Farming Duration"] || "(first time)",
+        body["Current Stage"] || "",
+        body["Start Timeline"] || "(n/a)",
+        body["Infrastructure"] || "",
+        body["Feed Budget Status"] || "",
+        body["Feed Budget Amount"] || "(none)",
+        body["Availability"] || "",
+        body["WhatsApp Number"] || "",
+        body["Biggest Problem"] || "(no answer)",
+        body["Score"] || 0,
+        body["Submitted At"] || ""
+      ]
+    );
 
-    // ── Pull all entries, build leaderboard ──
-    const allKeys = await env.SABII_ENTRIES.list();
-    const allEntries = [];
+    // ── Get top farmer from D1 ──
+    const result = await env.DB.exec(
+      `SELECT * FROM farmers ORDER BY score DESC LIMIT 1`
+    );
+    const topFarmer = result.results[0];
 
-    for (const key of allKeys.keys) {
-      const raw = await env.SABII_ENTRIES.get(key.name);
-      if (raw) {
-        try { allEntries.push(JSON.parse(raw)); } catch (e) {}
-      }
-    }
+    // ── Get total count ──
+    const countResult = await env.DB.exec(
+      `SELECT COUNT(*) as total FROM farmers`
+    );
+    const totalFarmers = countResult.results[0].total;
 
-    // Sort best to least
-    allEntries.sort((a, b) => (b.Score || 0) - (a.Score || 0));
-
-    const leaderboard = allEntries
+    // ── Get full leaderboard ──
+    const leaderboardResult = await env.DB.exec(
+      `SELECT * FROM farmers ORDER BY score DESC`
+    );
+    
+    const leaderboard = leaderboardResult.results
       .map((e, i) =>
-        `#${i + 1}. ${e["Name"] || "Unknown"} | ${e["Location"] || "?"} | Score: ${e["Score"] || 0} | ${e["Farming Experience"] || "?"} | Stage: ${e["Current Stage"] || "?"} | Budget: ${e["Feed Budget Amount"] || e["Feed Budget Status"] || "?"} | Water: ${e["Infrastructure"] || "?"} | Avail: ${e["Availability"] || "?"} | WA: ${e["WhatsApp Number"] || "?"}`
+        `#${i + 1}. ${e.farm_name} | ${e.location} | Score: ${e.score} | ${e.farming_experience} | Stage: ${e.current_stage} | Budget: ${e.feed_budget_amount} | ${e.availability} | WA: ${e.phone}`
       )
       .join("\n");
 
-    // ── Send email via MailChannels ──
+    // ── Send email via MailChannels WITH AUTH_TOKEN ──
     const emailBody = `
-NEW ENTRY — SABII FARMS PROFITABLE POND PROGRAM
+🐟 NEW CATFISH FARMER APPLICATION — SABII FARMS
 ================================================
 
-Name:               ${body["Name"] || ""}
-Location:           ${body["Location"] || ""}
-Farming Experience: ${body["Farming Experience"] || ""}
-Farming Duration:   ${body["Farming Duration"] || "(first time)"}
-Current Stage:      ${body["Current Stage"] || ""}
-Start Timeline:     ${body["Start Timeline"] || "(n/a)"}
-Infrastructure:     ${body["Infrastructure"] || ""}
-Feed Budget Status: ${body["Feed Budget Status"] || ""}
-Feed Budget Amount: ${body["Feed Budget Amount"] || "(none declared)"}
-Availability:       ${body["Availability"] || ""}
-WhatsApp Number:    ${body["WhatsApp Number"] || ""}
-Score:              ${body["Score"] || 0}
-Submitted At:       ${body["Submitted At"] || ""}
+NAME:               ${topFarmer.farm_name}
+LOCATION:           ${topFarmer.location}
+PHONE:              ${topFarmer.phone}
+SCORE:              ${topFarmer.score} points
 
-Biggest Problem:
-${body["Biggest Problem"] || "(no answer given)"}
+FARMING EXPERIENCE: ${topFarmer.farming_experience}
+DURATION:           ${topFarmer.farming_duration}
+CURRENT STAGE:      ${topFarmer.current_stage}
+INFRASTRUCTURE:     ${topFarmer.infrastructure}
+FEED BUDGET:        ${topFarmer.feed_budget_amount}
+AVAILABILITY:       ${topFarmer.availability}
+
+BIGGEST PROBLEM:
+${topFarmer.biggest_problem}
 
 ================================================
-FULL LEADERBOARD — BEST TO LEAST
+TOTAL APPLICATIONS: ${totalFarmers}
+FULL LEADERBOARD:
 ================================================
 ${leaderboard}
+
+Submitted At: ${topFarmer.timestamp}
     `.trim();
+
+    const AUTH_TOKEN = env.AUTH_TOKEN; // Get from Worker variables
 
     await fetch("https://api.mailchannels.net/tx/v1/send", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "X-Auth-Token": AUTH_TOKEN // ✅ REQUIRED for authentication
+      },
       body: JSON.stringify({
         from: {
           email: "assessment@sabiifarmsincorporated.com",
@@ -88,7 +113,7 @@ ${leaderboard}
         },
         to: [{ email: "sabiifarmsincorporated@gmail.com" }],
         subject: `🐟 New Entry: ${body["Name"] || "Unknown"} — Score ${body["Score"] || 0}`,
-        content: [{ type: "text/plain", value: emailBody }]
+        text: emailBody // ✅ Use 'text', not 'content'
       })
     });
 
