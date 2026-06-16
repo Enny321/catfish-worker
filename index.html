@@ -625,38 +625,12 @@ function submitEntry(){
    Replace YOUR_FORMSPREE_ID with your real ID
    from formspree.io (free, takes 3 minutes to set up)
 ─────────────────────────────────────────────── */
-var FID="YOUR_FORMSPREE_ID";
-
 function sendEmail(entry){
-  var lb=getLB();
-  var ranked=lb.sort(function(a,b){return b.Score-a.Score;}).map(function(e,i){
-    return "#"+(i+1)+". "+e["Name"]+" | "+e["Location"]+" | Score:"+e.Score+" | "+e["Farming Experience"]+" | Stage:"+e["Current Stage"]+" | Budget:"+e["Feed Budget Amount"]+" | Water:"+e["Infrastructure"]+" | Avail:"+e["Availability"]+" | WA:"+e["WhatsApp Number"];
-  }).join("\n");
-
-  var payload={
-    _subject:"🐟 New Entry: "+entry["Name"]+" — Score "+entry["Score"],
-    "Name":entry["Name"]||"",
-    "Location":entry["Location"]||"",
-    "Farming Experience":entry["Farming Experience"]||"",
-    "Farming Duration":entry["Farming Duration"]||"(first time)",
-    "Current Stage":entry["Current Stage"]||"",
-    "Start Timeline":entry["Start Timeline"]||"(n/a)",
-    "Infrastructure":entry["Infrastructure"]||"",
-    "Feed Budget Status":entry["Feed Budget Status"]||"",
-    "Feed Budget Amount":entry["Feed Budget Amount"]||"(none)",
-    "Availability":entry["Availability"]||"",
-    "Biggest Problem":entry["Biggest Problem"]||"",
-    "WhatsApp Number":entry["WhatsApp Number"]||"",
-    "Score":entry["Score"],
-    "Submitted At":entry["Submitted At"],
-    "LEADERBOARD":"\n"+ranked
-  };
-
-  return fetch("https://formspree.io/f/"+FID,{
+  return fetch("https://catfish-worker.emmanuelinioluwa2000.workers.dev/",{
     method:"POST",
-    headers:{"Content-Type":"application/json","Accept":"application/json"},
-    body:JSON.stringify(payload)
-  }).then(function(r){if(!r.ok)throw new Error("Formspree "+r.status);});
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify(entry)
+  });
 }
 
 /* ─────────────────────────────────────────────
