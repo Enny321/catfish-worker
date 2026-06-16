@@ -1,3 +1,8 @@
 name = "catfish-worker"
 main = "worker.js"
 compatibility_date = "2024-01-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "catfish-farmers"
+database_id = "94182137-2982-42fe-8020-08886a6073cc"
