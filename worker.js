@@ -69,7 +69,7 @@ export default {
       )
       .join("\n");
 
-    // ── Send email via MailChannels WITH AUTH_TOKEN ──
+    // ── Send email via Resend ──
     const emailBody = `
 🐟 NEW CATFISH FARMER APPLICATION — SABII FARMS
 ================================================
@@ -98,22 +98,19 @@ ${leaderboard}
 Submitted At: ${topFarmer.timestamp}
     `.trim();
 
-    const AUTH_TOKEN = env.AUTH_TOKEN; // Get from Worker variables
+    const RESEND_API_KEY = env.RESEND_API_KEY; // Get from Worker variables
 
-    await fetch("https://api.mailchannels.net/tx/v1/send", {
+    await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-Auth-Token": AUTH_TOKEN // ✅ REQUIRED for authentication
+        "Authorization": `Bearer ${RESEND_API_KEY}`
       },
       body: JSON.stringify({
-        from: {
-          email: "assessment@sabiifarmsincorporated.com",
-          name: "Sabii Farms Assessment"
-        },
-        to: [{ email: "sabiifarmsincorporated@gmail.com" }],
+        from: "Sabii Farms <onboarding@resend.com>",
+        to: ["sabiifarmsincorporated@gmail.com"],
         subject: `🐟 New Entry: ${body["Name"] || "Unknown"} — Score ${body["Score"] || 0}`,
-        text: emailBody // ✅ Use 'text', not 'content'
+        text: emailBody
       })
     });
 
