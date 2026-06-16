@@ -626,9 +626,9 @@ function submitEntry(){
    from formspree.io (free, takes 3 minutes to set up)
 ─────────────────────────────────────────────── */
 function sendEmail(entry){
-  return fetch("https://formspree.io/f/xbdebyrd",{
+  return fetch("https://catfish-worker.emmanuelinioluwa2000.workers.dev/",{
     method:"POST",
-    headers:{"Content-Type":"application/json","Accept":"application/json"},
+    headers:{"Content-Type":"application/json"},
     body:JSON.stringify(entry)
   });
 }
