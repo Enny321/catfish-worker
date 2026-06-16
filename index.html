@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0D5C63">
+<title>Sabii Farms – Apply for a Free Spot</title>
+
+<!-- Meta Pixel — fires Lead ONLY when farmer taps WhatsApp button -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','832041186429287');
+fbq('track','PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=832041186429287&ev=PageView&noscript=1"/></noscript>
+
+<!-- Preconnect for fast font load -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Only load the weights actually used -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+:root{--t:#0D5C63;--td:#084147;--tl:#1a7a83;--a:#F5A623;--ad:#d4891a;--cr:#F9F7F2;--w:#fff;--k:#1A1A1A;--ks:#4A4A4A;--mu:#8a9ba8;--r:14px;--rl:20px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:'Open Sans',sans-serif;background:var(--cr);color:var(--k);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+/* PROGRESS */
+#pb{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--w);box-shadow:0 2px 10px rgba(13,92,99,.1);padding:10px 16px 9px;safe-area-inset-top:env(safe-area-inset-top)}
+#pl{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px}
+#pl .br{font-family:'Poppins',sans-serif;font-weight:700;font-size:13px;color:var(--t)}
+#pl .sc{font-family:'Poppins',sans-serif;font-weight:700;font-size:13px;color:var(--ks)}
+#pt{height:7px;background:#ddeaec;border-radius:99px;overflow:hidden}
+#pf{height:100%;background:linear-gradient(90deg,var(--t),var(--a));border-radius:99px;transition:width .45s cubic-bezier(.4,0,.2,1);width:0%}
+
+/* APP */
+#app{padding-top:68px;display:flex;flex-direction:column;align-items:center}
+.screen{display:none;width:100%;max-width:600px;padding:20px 16px 64px;animation:si .35s ease}
+.screen.active{display:block}
+@keyframes si{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+
+/* WELCOME */
+.badge{display:inline-block;background:var(--a);color:var(--k);font-family:'Poppins',sans-serif;font-weight:700;font-size:11px;letter-spacing:1.2px;text-transform:uppercase;padding:5px 13px;border-radius:99px;margin-bottom:16px}
+.wtitle{font-family:'Poppins',sans-serif;font-weight:800;font-size:clamp(24px,7vw,34px);line-height:1.2;color:var(--t);margin-bottom:12px}
+.wtitle span{color:var(--a)}
+.wsub{font-size:15px;line-height:1.75;color:var(--ks);margin-bottom:16px}
+.tsec-head{font-family:'Poppins',sans-serif;font-weight:700;font-size:14px;color:var(--k);margin-bottom:12px;line-height:1.5}
+.tcards{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
+.tc{background:var(--w);border-left:4px solid var(--a);border-radius:0 var(--r) var(--r) 0;padding:13px 15px}
+.tc .q{font-size:14px;line-height:1.65;color:var(--k);margin-bottom:7px;font-style:italic}
+.tc .f{font-size:12px;font-weight:700;color:var(--t);text-transform:uppercase;letter-spacing:.4px}
+.sbox{background:var(--t);color:var(--w);border-radius:var(--rl);padding:18px 20px;margin-bottom:18px}
+.sbox-title{font-family:'Poppins',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;color:var(--a);margin-bottom:11px}
+.si{display:flex;align-items:flex-start;gap:10px;margin-bottom:9px}
+.si:last-child{margin-bottom:0}
+.si .dot{flex-shrink:0;width:21px;height:21px;background:var(--a);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--k);margin-top:2px}
+.si p{font-size:14px;line-height:1.6}
+.wfoot{font-size:14px;line-height:1.7;color:var(--ks);margin-bottom:22px}
+.wfoot strong{color:var(--k)}
+.apply-cta{font-family:'Poppins',sans-serif;font-weight:800;font-size:13px;color:var(--t);text-align:center;margin-bottom:14px;line-height:1.5}
+
+/* PREAMBLE */
+.pi{font-size:48px;text-align:center;margin-bottom:14px}
+.ptitle{font-family:'Poppins',sans-serif;font-weight:800;font-size:clamp(20px,5.5vw,26px);color:var(--t);line-height:1.3;margin-bottom:14px;text-align:center}
+.pbox{background:var(--w);border-radius:var(--rl);padding:18px 18px;margin-bottom:20px}
+.pbox p{font-size:15px;line-height:1.8;color:var(--ks);margin-bottom:13px}
+.pbox p:last-child{margin-bottom:0}
+.pbox strong{color:var(--k)}
+.pbox .hl{font-family:'Poppins',sans-serif;font-weight:700;font-size:15px;color:var(--t);border-top:1px solid #dde8ea;padding-top:13px;margin-top:2px;margin-bottom:0}
+
+/* QUESTIONS */
+.qhint{font-family:'Poppins',sans-serif;font-weight:700;font-size:11px;color:var(--tl);letter-spacing:.8px;text-transform:uppercase;margin-bottom:9px}
+.qtitle{font-family:'Poppins',sans-serif;font-weight:700;font-size:clamp(18px,5vw,23px);line-height:1.3;color:var(--k);margin-bottom:7px}
+.qsub{font-size:14px;color:var(--ks);line-height:1.6;margin-bottom:20px}
+
+/* OPTIONS */
+.ol{display:flex;flex-direction:column;gap:10px;margin-bottom:22px}
+.oc{display:flex;align-items:center;gap:13px;background:var(--w);border:2px solid #dde8ea;border-radius:var(--r);padding:14px 15px;cursor:pointer;-webkit-tap-highlight-color:transparent;user-select:none;transition:border-color .15s,background .15s}
+.oc:active{transform:scale(.985)}
+.oc.selected{border-color:var(--t);background:#eaf4f5}
+.or{flex-shrink:0;width:22px;height:22px;border:2px solid #aac5c8;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:border-color .15s,background .15s}
+.oc.selected .or{border-color:var(--t);background:var(--t)}
+.ord{width:8px;height:8px;background:var(--w);border-radius:50%;display:none}
+.oc.selected .ord{display:block}
+.ot{font-size:15px;line-height:1.45;color:var(--k);font-weight:600}
+.oc.selected .ot{color:var(--td)}
+
+/* FOLLOW-UP */
+.fu{display:none;margin-bottom:22px;animation:si .28s ease}
+.fu.vis{display:block}
+.fu label{display:block;font-size:13px;font-weight:600;color:var(--ks);margin-bottom:8px}
+
+/* INPUTS */
+.iw{margin-bottom:22px}
+.iw label{display:block;font-size:13px;font-weight:600;color:var(--ks);margin-bottom:7px}
+input[type=text],input[type=tel]{width:100%;background:var(--w);border:2px solid #dde8ea;border-radius:var(--r);padding:14px 15px;font-family:'Open Sans',sans-serif;font-size:16px;color:var(--k);outline:none;transition:border-color .15s;-webkit-appearance:none;appearance:none}
+input[type=text]:focus,input[type=tel]:focus{border-color:var(--t)}
+input::placeholder{color:var(--mu)}
+
+/* TEXTAREA */
+.tw{margin-bottom:22px}
+.tw label{display:block;font-size:13px;font-weight:600;color:var(--ks);margin-bottom:7px}
+textarea{width:100%;background:var(--w);border:2px solid #dde8ea;border-radius:var(--r);padding:14px 15px;font-family:'Open Sans',sans-serif;font-size:15px;color:var(--k);line-height:1.65;resize:none;outline:none;transition:border-color .15s}
+textarea:focus{border-color:var(--t)}
+textarea::placeholder{color:var(--mu)}
+
+/* BUTTONS */
+.btn{display:block;width:100%;padding:16px 20px;font-family:'Poppins',sans-serif;font-weight:700;font-size:16px;border:none;border-radius:var(--r);cursor:pointer;text-align:center;-webkit-tap-highlight-color:transparent;text-decoration:none;line-height:1;transition:background .15s,transform .12s}
+.btn:active{transform:scale(.97)}
+.btn-p{background:var(--t);color:var(--w);box-shadow:0 4px 16px rgba(13,92,99,.25)}
+.btn-a{background:var(--a);color:var(--k);box-shadow:0 4px 16px rgba(245,166,35,.32)}
+.btn-back{background:transparent;color:var(--ks);font-size:14px;padding:12px 0;box-shadow:none;width:auto;display:inline-block;margin-bottom:4px}
+.btn-back:active{transform:none;opacity:.7}
+.nav-row{display:flex;align-items:center;margin-bottom:8px}
+
+/* ERROR */
+.em{display:none;background:#ffeaea;color:#c0392b;font-size:13px;font-weight:600;padding:9px 13px;border-radius:8px;margin-bottom:12px;border-left:3px solid #c0392b}
+.em.show{display:block}
+
+/* MILESTONE */
+#mf{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;pointer-events:none;opacity:0;transition:opacity .25s;padding:20px}
+#mf.show{opacity:1}
+.mi{background:var(--t);color:var(--w);border-radius:var(--rl);padding:26px 30px;text-align:center;box-shadow:0 16px 50px rgba(13,92,99,.42);transform:scale(.82);transition:transform .3s cubic-bezier(.34,1.56,.64,1);max-width:300px;width:100%}
+#mf.show .mi{transform:scale(1)}
+.me{font-size:48px;margin-bottom:8px}
+.mt{font-family:'Poppins',sans-serif;font-weight:700;font-size:18px;line-height:1.4}
+.ms{font-size:13px;color:#a8d8dc;margin-top:5px}
+
+/* LOADING */
+#ls{display:none;flex-direction:column;align-items:center;justify-content:center;padding:80px 24px;text-align:center;width:100%}
+#ls.active{display:flex}
+.sp{width:48px;height:48px;border:5px solid #ddeaec;border-top-color:var(--t);border-radius:50%;animation:spin .8s linear infinite;margin-bottom:22px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.lt{font-family:'Poppins',sans-serif;font-weight:700;font-size:18px;color:var(--t);margin-bottom:7px}
+.ls{font-size:14px;color:var(--ks);line-height:1.6}
+
+/* THANK YOU */
+.tyi{font-size:68px;text-align:center;margin-bottom:14px;animation:bi .52s cubic-bezier(.34,1.56,.64,1)}
+@keyframes bi{from{transform:scale(.3);opacity:0}to{transform:scale(1);opacity:1}}
+.tytt{font-family:'Poppins',sans-serif;font-weight:800;font-size:clamp(22px,6vw,30px);color:var(--t);text-align:center;line-height:1.25;margin-bottom:13px}
+.tytt span{color:var(--a)}
+.tyb{font-size:15px;line-height:1.75;color:var(--ks);text-align:center;margin-bottom:22px}
+.sfbox{background:var(--t);color:var(--w);border-radius:var(--rl);padding:18px 20px;margin-bottom:18px;text-align:center}
+.sfl{font-family:'Poppins',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--a);margin-bottom:7px}
+.sft{font-family:'Poppins',sans-serif;font-weight:700;font-size:17px;margin-bottom:4px}
+.sfd{font-size:13px;color:#a8d8dc}
+.wbox{background:#fff8e1;border:2px solid var(--a);border-radius:var(--r);padding:16px 18px;margin-bottom:20px}
+.wbox p{font-size:14px;line-height:1.75;color:var(--k)}
+.wbox strong{color:#b45309}
+
+@media(max-width:390px){
+  .oc{padding:13px 12px}
+  .btn{font-size:15px;padding:15px 16px}
+  .wtitle{font-size:22px}
+}
+</style>
+</head>
+<body>
+
+<!-- PROGRESS BAR -->
+<div id="pb">
+  <div id="pl"><span class="br">🐟 Sabii Farms</span><span class="sc" id="sc">Let's begin!</span></div>
+  <div id="pt"><div id="pf"></div></div>
+</div>
+
+<!-- MILESTONE FLASH -->
+<div id="mf"><div class="mi"><div class="me" id="me">🎉</div><div class="mt" id="mtt"></div><div class="ms" id="ms"></div></div></div>
+
+<div id="app">
+
+<!-- ══ WELCOME ══ -->
+<div class="screen active" id="screen-welcome">
+  <div class="badge">Limited Spot — Apply Now</div>
+  <h1 class="wtitle">Join The Farmers Who Are Finally <span>Building Profitable Ponds</span></h1>
+
+  <p class="wsub">Sabii Farms is sponsoring one serious catfish farmer with a fully paid spot inside the <strong>Profitable Pond Program</strong> (₦120,000 value).<br><br>The selected farmer will receive the same guidance, support, and transformation that paying members are already experiencing.</p>
+
+  <p class="tsec-head">Here's what farmers who paid ₦120,000 to join are saying after experiencing the transformation you're about to win access to:</p>
+
+  <div class="tcards">
+    <div class="tc">
+      <div class="q">"I thought I had ruined my farm. After the reset, fish deaths dropped, growth improved, and despite my earlier mistakes, I still made profit. My confidence is completely different now."</div>
+      <div class="f">— Pastor Sam, Ogun State</div>
+    </div>
+    <div class="tc">
+      <div class="q">"As a first-time farmer, I didn't know what I was doing wrong. One reset class opened my eyes and gave me the confidence and clarity I needed. I now know what to do and what to avoid."</div>
+      <div class="f">— Fatima, Ogun State</div>
+    </div>
+    <div class="tc">
+      <div class="q">"Before joining, I struggled with underfeeding and overfeeding. Now I feed with confidence, my fish are growing better, and I have absolutely no regrets joining."</div>
+      <div class="f">— Sabii Farmers Member</div>
+    </div>
+  </div>
+
+  <div class="sbox">
+    <div class="sbox-title">If selected, here's what you'll receive:</div>
+    <div class="si"><div class="dot">✓</div><p>Exact feeding guides from day one to harvest — including how much of each feed size to use and the best times to feed every day</p></div>
+    <div class="si"><div class="dot">✓</div><p>The right number of fish for your pond and when to change your water, so you avoid costly mistakes and losses</p></div>
+    <div class="si"><div class="dot">✓</div><p>Simple step-by-step help on what to do when disease or fish deaths happen, so you don't lose your entire cycle</p></div>
+    <div class="si"><div class="dot">✓</div><p>Access to our private group where experienced farmers and trainers answer your questions and walk with you throughout your cycle</p></div>
+    <div class="si"><div class="dot">✓</div><p>Practical ways to find buyers and sell your fish at better prices</p></div>
+    <div class="si"><div class="dot">✓</div><p>The same proven system that has helped other farmers lose fewer fish, grow healthier fish, and farm with more confidence</p></div>
+  </div>
+
+  <p class="wfoot">This short assessment takes about <strong>3 minutes</strong>. We personally review every application, and being honest improves your chances.</p>
+
+  <p class="apply-cta">Apply below for a chance to receive a fully sponsored spot inside the ₦120,000 Profitable Pond Program.</p>
+  <button class="btn btn-p" onclick="goToPreamble()">Apply for the Free Spot →</button>
+</div>
+
+<!-- ══ PREAMBLE ══ -->
+<div class="screen" id="screen-preamble">
+  <div class="pi">📋</div>
+  <h2 class="ptitle">Before You Start — Read This</h2>
+  <div class="pbox">
+    <p>We will read every single answer you give carefully.</p>
+    <p>We are not picking randomly. We are looking for the farmer we can help the <strong>most</strong> — right now, with where they are in their farming journey.</p>
+    <p><strong>If you are selected and we later find out that your answers were not truthful, we will cancel your spot immediately. No exceptions.</strong></p>
+    <p>So please — be completely honest. Even if you think your situation is not perfect. <strong>Honest answers give you a better chance, not a lower one.</strong> We want to help real farmers, not impressive-sounding ones.</p>
+    <p class="hl">Ready? Let's go. 🐟</p>
+  </div>
+  <div class="nav-row"><button class="btn btn-back" onclick="goToWelcome()">← Back</button></div>
+  <button class="btn btn-p" onclick="startAssessment()">I Understand — Start My Assessment →</button>
+</div>
+
+<!-- Question screens built by JS -->
+
+<!-- LOADING -->
+<div id="ls">
+  <div class="sp"></div>
+  <div class="lt">Reviewing your answers…</div>
+  <div class="ls">Please wait. We are checking your responses.<br>This will only take a moment.</div>
+</div>
+
+<!-- ══ THANK YOU ══ -->
+<div class="screen" id="screen-thankyou">
+  <div class="tyi">🎊</div>
+  <h2 class="tytt">You Did It! <span>Your Entry Has Been Received.</span></h2>
+  <p class="tyb">Well done for completing the assessment. Every answer you gave has been recorded and will be reviewed by our team. You have taken a step that most farmers never take.</p>
+
+  <div class="sfbox">
+    <div class="sfl">⚠️ Final Step — Do Not Skip This</div>
+    <div class="sft">Join the Sabii Farmers WhatsApp Group</div>
+    <div class="sfd">This is the only place where we announce the chosen farmer</div>
+  </div>
+
+  <div class="wbox">
+    <p><strong>This step is not optional.</strong> If you do not join the WhatsApp group, we have <strong>no way to contact you</strong> — even if your name comes out on top. We cannot hold the spot for someone we cannot reach. If no one claims it within 24 hours of the announcement, the spot passes automatically to the next farmer on our list. <strong>Do not let that be you.</strong></p>
+  </div>
+
+  <p style="font-size:15px;line-height:1.75;color:var(--ks);text-align:center;margin-bottom:20px;">Tap the button below now. It takes less than 10 seconds and it is the last thing standing between you and this opportunity.</p>
+
+  <!-- Meta Pixel Lead event fires here — only real completers reach this button -->
+  <a href="https://chat.whatsapp.com/CunUzGZw6909XgU8R5XZBh"
+     target="_blank"
+     class="btn btn-a"
+     style="display:block;text-align:center;margin-bottom:18px;"
+     onclick="fbq('track','Lead')">
+    ✅ Join the WhatsApp Group Now
+  </a>
+
+  <p style="text-align:center;font-size:13px;color:var(--mu);line-height:1.6;">After joining, sit tight. We will review all entries and announce the selected farmer in the group. Good luck! 🐟</p>
+</div>
+
+</div><!-- /#app -->
+
+<script>
+/* ─────────────────────────────────────────────
+   QUESTIONS
+   Types: choice | choice-manual | text | tel | note
+─────────────────────────────────────────────── */
+var Q = [
+
+  // 1 — Name
+  {id:"q0",type:"text",key:"Name",
+   question:"What is your name?",
+   sub:"Please write your first name and last name.",
+   ph:"e.g. Emeka Okafor"},
+
+  // 2 — State
+  {id:"q1",type:"text",key:"Location",
+   question:"What state do you farm in?",
+   sub:"Tell us your state. You can also add your city or town.",
+   ph:"e.g. Oyo State, Ibadan"},
+
+  // 3 — First time or returning? (follow-up is choice cards)
+  {id:"q2",type:"choice-manual",key:"Farming Experience",
+   followupKey:"Farming Duration",followupType:"choice",
+   question:"Is this your first time raising catfish, or have you done it before?",
+   sub:"Pick the answer that matches your situation.",
+   options:[
+     {label:"This is my first time — I have never raised catfish before",value:"First time",hasFollowup:false},
+     {label:"I have done it before",value:"Returning farmer",hasFollowup:true}
+   ],
+   followupLabel:"How long have you been farming catfish?",
+   followupOptions:[
+     {label:"Less than one year",value:"Less than 1 year"},
+     {label:"About one year",value:"About 1 year"},
+     {label:"About two years",value:"About 2 years"},
+     {label:"More than two years",value:"More than 2 years"}
+   ]
+  },
+
+  // 4 — Currently raising or about to start?
+  {id:"q3",type:"choice-manual",key:"Current Stage",
+   followupKey:"Start Timeline",followupType:"choice",
+   question:"Are you raising fish right now, or about to start a new cycle?",
+   sub:"Be specific — this matters a lot to us.",
+   options:[
+     {label:"I am currently raising fish right now",value:"Currently raising",hasFollowup:false},
+     {label:"I am about to start soon",value:"Starting soon",hasFollowup:true},
+     {label:"I am still preparing — no clear start date yet",value:"Preparing, no date",hasFollowup:false}
+   ],
+   followupLabel:"How soon are you starting?",
+   followupOptions:[
+     {label:"Within the next 1 to 2 weeks",value:"1-2 weeks"},
+     {label:"Within the next 3 to 4 weeks",value:"3-4 weeks"},
+     {label:"Within the next 1 to 2 months",value:"1-2 months"},
+     {label:"Not sure yet",value:"Not sure"}
+   ]
+  },
+
+  // 5 — Pond and water
+  {id:"q4",type:"choice",key:"Infrastructure",
+   question:"Do you have a pond and a reliable source of water?",
+   sub:"Pick the one that matches your situation right now.",
+   options:[
+     {label:"Yes — I have both a pond and a steady water supply",value:"Pond and water ready"},
+     {label:"I have a pond but my water is not always consistent",value:"Pond yes, water inconsistent"},
+     {label:"I don't have a pond yet but I am working on it",value:"No pond yet"},
+     {label:"No — I don't have either yet",value:"No pond, no water"}
+   ]
+  },
+
+  // 6 — Feed budget (choice + conditional follow-up)
+  {id:"q5",type:"choice-manual",key:"Feed Budget Status",
+   followupKey:"Feed Budget Amount",followupType:"choice",
+   question:"Do you have enough money set aside to feed your fish from today until harvest?",
+   sub:"Be honest. This helps us understand how to help you best.",
+   options:[
+     {label:"Yes — I have a budget ready",value:"Budget ready",hasFollowup:true},
+     {label:"I have some money but I am not sure it is enough",value:"Partial budget",hasFollowup:true},
+     {label:"No — I am still trying to put money together",value:"No budget yet",hasFollowup:false}
+   ],
+   followupLabel:"Roughly how much do you have available for this cycle?",
+   followupOptions:[
+     {label:"Below ₦500,000",value:"Below 500k"},
+     {label:"₦500,000 – ₦999,999",value:"500k-999k"},
+     {label:"₦1,000,000 – ₦2,000,000",value:"1M-2M"},
+     {label:"Above ₦2,000,000",value:"Above 2M"}
+   ]
+  },
+
+  // 7 — Availability
+  {id:"q6",type:"choice",key:"Availability",
+   question:"How available are you to take care of your fish regularly?",
+   sub:"This tells us how easily you can put what you learn into practice.",
+   options:[
+     {label:"I am fully available — farming is my main focus",value:"Fully available"},
+     {label:"I am available most of the time but I have other commitments",value:"Mostly available"},
+     {label:"I am quite busy — I would need someone else to help manage the farm",value:"Busy, needs helper"}
+   ]
+  },
+
+  // 8 — Biggest problem (open text)
+  {id:"q7",type:"note",key:"Biggest Problem",
+   question:"What is the biggest problem on your farm right now?",
+   sub:"Or — what is the one thing you are most afraid of getting wrong in this coming cycle? Write as much or as little as you want. Just be honest. This is the most important question.",
+   ph:"e.g. My fish keep dying by week 6 and I don't know why. I have lost money twice now and I am scared of making the same mistake again…"},
+
+  // 9 — Phone (last)
+  {id:"q8",type:"tel",key:"WhatsApp Number",
+   question:"What is your WhatsApp phone number?",
+   sub:"This is how we will reach you if you are selected. Make sure it is active on WhatsApp.",
+   ph:"e.g. 08012345678"}
+];
+
+/* ─────────────────────────────────────────────
+   SCORING
+─────────────────────────────────────────────── */
+var SM = {
+  "Farming Experience":{
+    "First time":30,
+    "Returning farmer":18
+  },
+  "Farming Duration":{
+    "Less than 1 year":10,"About 1 year":8,"About 2 years":4,"More than 2 years":0
+  },
+  "Feed Budget Amount":{
+    "Above 2M":30,"1M-2M":28,"500k-999k":12,"Below 500k":4,"(no budget)":0
+  },
+  "Current Stage":{
+    "Currently raising":24,"Starting soon":18,"Preparing, no date":2
+  },
+  "Start Timeline":{
+    "1-2 weeks":6,"3-4 weeks":4,"1-2 months":1,"Not sure":0
+  },
+  "Infrastructure":{
+    "Pond and water ready":22,"Pond yes, water inconsistent":12,"No pond yet":4,"No pond, no water":1
+  },
+  "Availability":{
+    "Fully available":14,"Mostly available":8,"Busy, needs helper":2
+  },
+  "Feed Budget Status":{
+    "Budget ready":6,"Partial budget":3,"No budget yet":0
+  }
+};
+
+var MILES = {
+  3:{e:"🔥",t:"You are on a roll!",s:"Most people stop here. You kept going."},
+  5:{e:"💪",t:"More than halfway!",s:"You're doing better than most applicants."},
+  7:{e:"⭐",t:"Almost there!",s:"Just two more questions. You've got this."}
+};
+
+var TOTAL = Q.length;
+var step = -1;
+var ans = {};
+
+/* ─────────────────────────────────────────────
+   BUILD QUESTION SCREENS
+─────────────────────────────────────────────── */
+function build(){
+  var app = document.getElementById("app");
+  var ls  = document.getElementById("ls");
+
+  Q.forEach(function(q,idx){
+    var s = document.createElement("div");
+    s.className = "screen";
+    s.id = "sq"+idx;
+
+    var isLast = idx === Q.length-1;
+    var backTarget = idx === 0 ? "screen-preamble" : "sq"+(idx-1);
+    var h = '<div class="nav-row"><button class="btn btn-back" onclick="goBack('+idx+')">← Back</button></div>'
+          + '<div class="qhint">Question '+(idx+1)+' of '+TOTAL+'</div>'
+          + '<h2 class="qtitle">'+q.question+'</h2>'
+          + '<p class="qsub">'+q.sub+'</p>'
+          + '<div class="em" id="er'+idx+'"></div>';
+
+    if(q.type==="choice"||q.type==="choice-manual"){
+      h+='<div class="ol" id="ol'+idx+'">';
+      q.options.forEach(function(o,oi){
+        var fn = q.type==="choice"
+          ? "sa("+idx+","+oi+",'"+esc(o.value)+"')"
+          : "sm("+idx+","+oi+",'"+esc(o.value)+"',"+(o.hasFollowup?"true":"false")+")";
+        h+='<div class="oc" id="oc'+idx+'_'+oi+'" onclick="'+fn+'">'
+          +'<div class="or"><div class="ord"></div></div>'
+          +'<div class="ot">'+o.label+'</div></div>';
+      });
+      h+='</div>';
+
+      // follow-up area
+      if(q.followupType==="choice"&&q.followupOptions){
+        h+='<div class="fu" id="fu'+idx+'"><label>'+q.followupLabel+'</label>'
+          +'<div class="ol" id="fol'+idx+'">';
+        q.followupOptions.forEach(function(fo,fi){
+          h+='<div class="oc" id="foc'+idx+'_'+fi+'" onclick="sf('+idx+','+fi+',\''+esc(fo.value)+'\')">'
+            +'<div class="or"><div class="ord"></div></div>'
+            +'<div class="ot">'+fo.label+'</div></div>';
+        });
+        h+='</div></div>';
+      }
+
+      if(q.type==="choice-manual"){
+        h+='<div id="nb'+idx+'" style="display:none">'
+          +'<button class="btn btn-p" onclick="nxt('+idx+')">'+(isLast?"Submit My Entry 🎉":"Next →")+'</button>'
+          +'</div>';
+      }
+    } else if(q.type==="note"){
+      h+='<div class="tw"><label>Your answer (the more honest, the better):</label>'
+        +'<textarea id="inp'+idx+'" rows="6" placeholder="'+q.ph+'"></textarea></div>'
+        +'<button class="btn btn-p" onclick="nxt('+idx+')">'+(isLast?"Submit My Entry 🎉":"Next →")+'</button>';
+    } else if(q.type==="tel"){
+      h+='<div class="iw"><label>Your WhatsApp number:</label>'
+        +'<input type="tel" id="inp'+idx+'" placeholder="'+q.ph+'" autocomplete="tel" inputmode="tel"></div>'
+        +'<button class="btn btn-p" onclick="nxt('+idx+')">'+(isLast?"Submit My Entry 🎉":"Next →")+'</button>';
+    } else {
+      h+='<div class="iw"><label>Your answer:</label>'
+        +'<input type="text" id="inp'+idx+'" placeholder="'+q.ph+'" autocomplete="off"></div>'
+        +'<button class="btn btn-p" onclick="nxt('+idx+')">'+(isLast?"Submit My Entry 🎉":"Next →")+'</button>';
+    }
+
+    s.innerHTML = h;
+    app.insertBefore(s, ls);
+  });
+}
+
+/* ─────────────────────────────────────────────
+   SELECTION HANDLERS
+─────────────────────────────────────────────── */
+// Pure choice — auto-advance
+function sa(qi,oi,val){
+  ans[Q[qi].key]=val;
+  hi(qi,oi,"ol");
+  clrErr(qi);
+  setTimeout(function(){nxt(qi);},280);
+}
+
+// Manual choice — show follow-up if needed, show Next
+function sm(qi,oi,val,hasFu){
+  ans[Q[qi].key]=val;
+  hi(qi,oi,"ol");
+  clrErr(qi);
+  var fu=document.getElementById("fu"+qi);
+  var nb=document.getElementById("nb"+qi);
+  if(fu){
+    if(hasFu){fu.classList.add("vis");}
+    else{
+      fu.classList.remove("vis");
+      var q=Q[qi];
+      if(q.followupKey) ans[q.followupKey]="(n/a)";
+    }
+  }
+  if(nb) nb.style.display="block";
+}
+
+// Follow-up choice selection
+function sf(qi,fi,val){
+  var q=Q[qi];
+  ans[q.followupKey]=val;
+  hi(qi,fi,"fol");
+}
+
+function hi(qi,fi,prefix){
+  document.querySelectorAll("#"+prefix+qi+" .oc").forEach(function(c){c.classList.remove("selected");});
+  var el=document.getElementById((prefix==="ol"?"oc":"foc")+qi+"_"+fi);
+  if(el) el.classList.add("selected");
+}
+
+/* ─────────────────────────────────────────────
+   NAVIGATION
+─────────────────────────────────────────────── */
+function goToWelcome(){show("screen-welcome");upProg(0);}
+function goToPreamble(){show("screen-preamble");upProg(0);}
+
+function startAssessment(){
+  step=0;
+  upProg(1);
+  show("sq0");
+}
+
+function goBack(qi){
+  clrErr(qi);
+  if(qi===0){show("screen-preamble");upProg(0);}
+  else{step=qi-1;upProg(qi);show("sq"+(qi-1));}
+}
+
+function nxt(qi){
+  var q=Q[qi];
+
+  if(q.type==="choice"){
+    if(!ans[q.key]){showErr(qi,"Please pick one of the options above.");return;}
+  } else if(q.type==="choice-manual"){
+    if(!ans[q.key]){showErr(qi,"Please pick one of the options above.");return;}
+    var fu=document.getElementById("fu"+qi);
+    if(fu&&fu.classList.contains("vis")){
+      if(!ans[q.followupKey]||ans[q.followupKey]==="(n/a)"){
+        showErr(qi,"Please also pick an answer from the follow-up options.");return;
+      }
+    }
+  } else if(q.type==="note"){
+    var v=document.getElementById("inp"+qi);
+    ans[q.key]=v?v.value.trim()||"(No answer given)":"(No answer given)";
+  } else if(q.type==="tel"){
+    var v=document.getElementById("inp"+qi);
+    if(!v||!v.value.trim()){showErr(qi,"Please enter your WhatsApp number before continuing.");return;}
+    if(v.value.replace(/\D/g,"").length<10){showErr(qi,"Please enter a valid phone number — at least 10 digits.");return;}
+    ans[q.key]=v.value.trim();
+  } else {
+    var v=document.getElementById("inp"+qi);
+    if(!v||!v.value.trim()){showErr(qi,"Please type your answer before moving on.");return;}
+    ans[q.key]=v.value.trim();
+  }
+
+  var nx=qi+1;
+  if(nx>=Q.length){submitEntry();return;}
+
+  var nsn=nx+1;
+  if(MILES[nsn]) showMile(nsn);
+
+  step=nx;
+  upProg(nsn);
+  show("sq"+nx);
+}
+
+/* ─────────────────────────────────────────────
+   SCORING
+─────────────────────────────────────────────── */
+function score(a){
+  var s=0;
+  Object.keys(SM).forEach(function(k){
+    var v=a[k];
+    if(v&&SM[k][v]!==undefined) s+=SM[k][v];
+  });
+  // No budget means 0 for feed amount
+  if(!a["Feed Budget Amount"]||a["Feed Budget Amount"]==="(n/a)") a["Feed Budget Amount"]="(no budget)";
+  // Meaningful problem description bonus
+  if(a["Biggest Problem"]&&a["Biggest Problem"].length>30&&a["Biggest Problem"]!=="(No answer given)") s+=6;
+  return s;
+}
+
+/* ─────────────────────────────────────────────
+   SUBMIT
+─────────────────────────────────────────────── */
+function submitEntry(){
+  hideAll();
+  document.getElementById("ls").classList.add("active");
+  scrollTop();
+
+  var sc = score(ans);
+  var entry = Object.assign({},ans,{Score:sc,"Submitted At":new Date().toLocaleString("en-NG",{timeZone:"Africa/Lagos"})});
+
+  saveLB(entry);
+  sendEmail(entry).catch(function(e){console.warn("Email failed:",e);});
+
+  setTimeout(function(){
+    document.getElementById("ls").classList.remove("active");
+    upProg(TOTAL+1);
+    show("screen-thankyou");
+  },2400);
+}
+
+/* ─────────────────────────────────────────────
+   FORMSPREE
+   Replace YOUR_FORMSPREE_ID with your real ID
+   from formspree.io (free, takes 3 minutes to set up)
+─────────────────────────────────────────────── */
+var FID="YOUR_FORMSPREE_ID";
+
+function sendEmail(entry){
+  var lb=getLB();
+  var ranked=lb.sort(function(a,b){return b.Score-a.Score;}).map(function(e,i){
+    return "#"+(i+1)+". "+e["Name"]+" | "+e["Location"]+" | Score:"+e.Score+" | "+e["Farming Experience"]+" | Stage:"+e["Current Stage"]+" | Budget:"+e["Feed Budget Amount"]+" | Water:"+e["Infrastructure"]+" | Avail:"+e["Availability"]+" | WA:"+e["WhatsApp Number"];
+  }).join("\n");
+
+  var payload={
+    _subject:"🐟 New Entry: "+entry["Name"]+" — Score "+entry["Score"],
+    "Name":entry["Name"]||"",
+    "Location":entry["Location"]||"",
+    "Farming Experience":entry["Farming Experience"]||"",
+    "Farming Duration":entry["Farming Duration"]||"(first time)",
+    "Current Stage":entry["Current Stage"]||"",
+    "Start Timeline":entry["Start Timeline"]||"(n/a)",
+    "Infrastructure":entry["Infrastructure"]||"",
+    "Feed Budget Status":entry["Feed Budget Status"]||"",
+    "Feed Budget Amount":entry["Feed Budget Amount"]||"(none)",
+    "Availability":entry["Availability"]||"",
+    "Biggest Problem":entry["Biggest Problem"]||"",
+    "WhatsApp Number":entry["WhatsApp Number"]||"",
+    "Score":entry["Score"],
+    "Submitted At":entry["Submitted At"],
+    "LEADERBOARD":"\n"+ranked
+  };
+
+  return fetch("https://formspree.io/f/"+FID,{
+    method:"POST",
+    headers:{"Content-Type":"application/json","Accept":"application/json"},
+    body:JSON.stringify(payload)
+  }).then(function(r){if(!r.ok)throw new Error("Formspree "+r.status);});
+}
+
+/* ─────────────────────────────────────────────
+   LOCAL LEADERBOARD
+─────────────────────────────────────────────── */
+function saveLB(e){
+  try{
+    var l=JSON.parse(localStorage.getItem("sf_lb")||"[]");
+    l.push(e);l.sort(function(a,b){return b.Score-a.Score;});
+    localStorage.setItem("sf_lb",JSON.stringify(l));
+  }catch(x){}
+}
+function getLB(){
+  try{return JSON.parse(localStorage.getItem("sf_lb")||"[]");}catch(x){return [];}
+}
+
+/* ─────────────────────────────────────────────
+   UI HELPERS
+─────────────────────────────────────────────── */
+function esc(s){return String(s).replace(/\\/g,"\\\\").replace(/'/g,"\\'");}
+function scrollTop(){window.scrollTo({top:0,behavior:"smooth"});}
+function hideAll(){document.querySelectorAll(".screen").forEach(function(s){s.classList.remove("active");});}
+function show(id){
+  hideAll();
+  var el=document.getElementById(id);
+  if(el){el.classList.add("active");scrollTop();}
+}
+function showErr(i,m){var e=document.getElementById("er"+i);if(e){e.textContent=m;e.classList.add("show");}}
+function clrErr(i){var e=document.getElementById("er"+i);if(e)e.classList.remove("show");}
+function upProg(s){
+  var pct=s<=0?0:Math.min(100,Math.round((s/TOTAL)*100));
+  document.getElementById("pf").style.width=pct+"%";
+  var lbl=s<=0?"Let's begin!":s>TOTAL?"Complete ✓":"Step "+s+" of "+TOTAL;
+  document.getElementById("sc").textContent=lbl;
+}
+function showMile(n){
+  var m=MILES[n];if(!m)return;
+  document.getElementById("me").textContent=m.e;
+  document.getElementById("mtt").textContent=m.t;
+  document.getElementById("ms").textContent=m.s;
+  var f=document.getElementById("mf");
+  f.classList.add("show");
+  setTimeout(function(){f.classList.remove("show");},2300);
+}
+
+/* ─────────────────────────────────────────────
+   BOOT
+─────────────────────────────────────────────── */
+build();
+upProg(0);
+</script>
+</body>
+</html>
