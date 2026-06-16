@@ -21,14 +21,14 @@ export default {
       return new Response("Bad request", { status: 400, headers: corsHeaders });
     }
 
-    // ── Store in D1 Database ──
-    await env.DB.exec(
-      `INSERT INTO farmers 
+    // ── Store in D1 Database (using run() instead of exec()) ──
+    await env.DB.run({
+      sql: `INSERT INTO farmers 
        (farm_name, location, farming_experience, farming_duration, current_stage, 
         start_timeline, infrastructure, feed_budget_status, feed_budget_amount, 
         availability, phone, biggest_problem, score, timestamp) 
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [
+      params: [
         body["Name"] || "",
         body["Location"] || "",
         body["Farming Experience"] || "",
@@ -44,26 +44,29 @@ export default {
         body["Score"] || 0,
         body["Submitted At"] || ""
       ]
-    );
+    });
 
     // ── Get top farmer from D1 ──
-    const result = await env.DB.exec(
-      `SELECT * FROM farmers ORDER BY score DESC LIMIT 1`
-    );
-    const topFarmer = result.results[0];
+    const result = await env.DB.run({
+      sql: `SELECT * FROM farmers ORDER BY score DESC LIMIT 1`,
+      params: []
+    });
+    const topFarmer = result.rows[0];
 
     // ── Get total count ──
-    const countResult = await env.DB.exec(
-      `SELECT COUNT(*) as total FROM farmers`
-    );
-    const totalFarmers = countResult.results[0].total;
+    const countResult = await env.DB.run({
+      sql: `SELECT COUNT(*) as total FROM farmers`,
+      params: []
+    });
+    const totalFarmers = countResult.rows[0].total;
 
     // ── Get full leaderboard ──
-    const leaderboardResult = await env.DB.exec(
-      `SELECT * FROM farmers ORDER BY score DESC`
-    );
+    const leaderboardResult = await env.DB.run({
+      sql: `SELECT * FROM farmers ORDER BY score DESC`,
+      params: []
+    });
     
-    const leaderboard = leaderboardResult.results
+    const leaderboard = leaderboardResult.rows
       .map((e, i) =>
         `#${i + 1}. ${e.farm_name} | ${e.location} | Score: ${e.score} | ${e.farming_experience} | Stage: ${e.current_stage} | Budget: ${e.feed_budget_amount} | ${e.availability} | WA: ${e.phone}`
       )
@@ -98,7 +101,7 @@ ${leaderboard}
 Submitted At: ${topFarmer.timestamp}
     `.trim();
 
-    const RESEND_API_KEY = env.RESEND_API_KEY; // Get from Worker variables
+    const RESEND_API_KEY = env.RESEND_API_KEY;
 
     await fetch("https://api.resend.com/emails", {
       method: "POST",
