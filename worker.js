@@ -1,5 +1,6 @@
 export default {
   async fetch(request, env) {
+
     const corsHeaders = {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "POST, OPTIONS",
@@ -11,7 +12,7 @@ export default {
     }
 
     if (request.method !== "POST") {
-      return new Response("Not allowed", { status: 405 });
+      return new Response("Not allowed", { status: 405, headers: corsHeaders });
     }
 
     let body;
@@ -21,99 +22,85 @@ export default {
       return new Response("Bad request", { status: 400, headers: corsHeaders });
     }
 
-    // ── Store in D1 Database (using run() instead of exec()) ──
-    await env.DB.run({
-      sql: `INSERT INTO farmers 
+    // ── Save to D1 ──
+    await env.DB.prepare(
+      `INSERT INTO farmers 
        (farm_name, location, farming_experience, farming_duration, current_stage, 
         start_timeline, infrastructure, feed_budget_status, feed_budget_amount, 
         availability, phone, biggest_problem, score, timestamp) 
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      params: [
-        body["Name"] || "",
-        body["Location"] || "",
-        body["Farming Experience"] || "",
-        body["Farming Duration"] || "(first time)",
-        body["Current Stage"] || "",
-        body["Start Timeline"] || "(n/a)",
-        body["Infrastructure"] || "",
-        body["Feed Budget Status"] || "",
-        body["Feed Budget Amount"] || "(none)",
-        body["Availability"] || "",
-        body["WhatsApp Number"] || "",
-        body["Biggest Problem"] || "(no answer)",
-        body["Score"] || 0,
-        body["Submitted At"] || ""
-      ]
-    });
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+    ).bind(
+      body["Name"] || "",
+      body["Location"] || "",
+      body["Farming Experience"] || "",
+      body["Farming Duration"] || "(first time)",
+      body["Current Stage"] || "",
+      body["Start Timeline"] || "(n/a)",
+      body["Infrastructure"] || "",
+      body["Feed Budget Status"] || "",
+      body["Feed Budget Amount"] || "(none)",
+      body["Availability"] || "",
+      body["WhatsApp Number"] || "",
+      body["Biggest Problem"] || "(no answer)",
+      body["Score"] || 0,
+      body["Submitted At"] || ""
+    ).run();
 
-    // ── Get top farmer from D1 ──
-    const result = await env.DB.run({
-      sql: `SELECT * FROM farmers ORDER BY score DESC LIMIT 1`,
-      params: []
-    });
-    const topFarmer = result.rows[0];
+    // ── Get full leaderboard from D1 ──
+    const leaderboardResult = await env.DB.prepare(
+      `SELECT * FROM farmers ORDER BY score DESC`
+    ).all();
 
-    // ── Get total count ──
-    const countResult = await env.DB.run({
-      sql: `SELECT COUNT(*) as total FROM farmers`,
-      params: []
-    });
-    const totalFarmers = countResult.rows[0].total;
+    const totalFarmers = leaderboardResult.results.length;
 
-    // ── Get full leaderboard ──
-    const leaderboardResult = await env.DB.run({
-      sql: `SELECT * FROM farmers ORDER BY score DESC`,
-      params: []
-    });
-    
-    const leaderboard = leaderboardResult.rows
-      .map((e, i) =>
-        `#${i + 1}. ${e.farm_name} | ${e.location} | Score: ${e.score} | ${e.farming_experience} | Stage: ${e.current_stage} | Budget: ${e.feed_budget_amount} | ${e.availability} | WA: ${e.phone}`
-      )
-      .join("\n");
+    const leaderboard = leaderboardResult.results.map((e, i) =>
+      `#${i+1}. ${e.farm_name} | ${e.location} | Score: ${e.score} | ${e.farming_experience} | Stage: ${e.current_stage} | Budget: ${e.feed_budget_amount} | Water: ${e.infrastructure} | Avail: ${e.availability} | WA: ${e.phone}`
+    ).join("\n");
+
+    // ── Top farmer ──
+    const top = leaderboardResult.results[0];
 
     // ── Send email via Resend ──
-    const emailBody = `
-🐟 NEW CATFISH FARMER APPLICATION — SABII FARMS
-================================================
+    const emailText = `
+NEW APPLICATION — SABII FARMS PROFITABLE POND PROGRAM
+=====================================================
 
-NAME:               ${topFarmer.farm_name}
-LOCATION:           ${topFarmer.location}
-PHONE:              ${topFarmer.phone}
-SCORE:              ${topFarmer.score} points
+NAME:               ${body["Name"] || ""}
+LOCATION:           ${body["Location"] || ""}
+WHATSAPP:           ${body["WhatsApp Number"] || ""}
+SCORE:              ${body["Score"] || 0}
 
-FARMING EXPERIENCE: ${topFarmer.farming_experience}
-DURATION:           ${topFarmer.farming_duration}
-CURRENT STAGE:      ${topFarmer.current_stage}
-INFRASTRUCTURE:     ${topFarmer.infrastructure}
-FEED BUDGET:        ${topFarmer.feed_budget_amount}
-AVAILABILITY:       ${topFarmer.availability}
+FARMING EXPERIENCE: ${body["Farming Experience"] || ""}
+FARMING DURATION:   ${body["Farming Duration"] || "(first time)"}
+CURRENT STAGE:      ${body["Current Stage"] || ""}
+START TIMELINE:     ${body["Start Timeline"] || "(n/a)"}
+INFRASTRUCTURE:     ${body["Infrastructure"] || ""}
+FEED BUDGET STATUS: ${body["Feed Budget Status"] || ""}
+FEED BUDGET AMOUNT: ${body["Feed Budget Amount"] || "(none)"}
+AVAILABILITY:       ${body["Availability"] || ""}
 
 BIGGEST PROBLEM:
-${topFarmer.biggest_problem}
+${body["Biggest Problem"] || "(no answer given)"}
 
-================================================
-TOTAL APPLICATIONS: ${totalFarmers}
-FULL LEADERBOARD:
-================================================
+=====================================================
+TOTAL APPLICATIONS SO FAR: ${totalFarmers}
+
+FULL LEADERBOARD — BEST TO LEAST:
+=====================================================
 ${leaderboard}
-
-Submitted At: ${topFarmer.timestamp}
     `.trim();
-
-    const RESEND_API_KEY = env.RESEND_API_KEY;
 
     await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${RESEND_API_KEY}`
+        "Authorization": "Bearer " + env.RESEND_API_KEY
       },
       body: JSON.stringify({
-        from: "Sabii Farms <onboarding@resend.com>",
+        from: "Sabii Farms <onboarding@resend.dev>",
         to: ["sabiifarmsincorporated@gmail.com"],
-        subject: `🐟 New Entry: ${body["Name"] || "Unknown"} — Score ${body["Score"] || 0}`,
-        text: emailBody
+        subject: "🐟 New Entry: " + (body["Name"] || "Unknown") + " — Score " + (body["Score"] || 0),
+        text: emailText
       })
     });
 
