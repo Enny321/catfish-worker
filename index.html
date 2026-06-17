@@ -60,6 +60,15 @@ body{font-family:'Open Sans',sans-serif;background:var(--cr);color:var(--k);min-
 .wfoot strong{color:var(--k)}
 .apply-cta{font-family:'Poppins',sans-serif;font-weight:800;font-size:13px;color:var(--t);text-align:center;margin-bottom:14px;line-height:1.5}
 
+/* HERO BANNER */
+.hero-wrap{position:relative;width:calc(100% + 32px);margin-left:-16px;margin-right:-16px;margin-bottom:20px;border-radius:0 0 var(--rl) var(--rl);overflow:hidden;max-height:340px}
+.hero-bg{width:100%;height:340px;object-fit:cover;object-position:center 30%;display:block}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,65,71,0.45) 0%,rgba(8,65,71,0.78) 60%,rgba(8,65,71,0.92) 100%)}
+.hero-text{position:absolute;inset:0;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;padding:20px 18px 22px}
+.hero-text .badge{margin-bottom:10px;background:var(--a)}
+.hero-text .wtitle{color:#ffffff;margin-bottom:0;text-shadow:0 1px 4px rgba(0,0,0,0.3)}
+.hero-text .wtitle span{color:var(--a)}
+
 /* PREAMBLE */
 .pi{font-size:48px;text-align:center;margin-bottom:14px}
 .ptitle{font-family:'Poppins',sans-serif;font-weight:800;font-size:clamp(20px,5.5vw,26px);color:var(--t);line-height:1.3;margin-bottom:14px;text-align:center}
@@ -171,8 +180,21 @@ textarea::placeholder{color:var(--mu)}
 
 <!-- ══ WELCOME ══ -->
 <div class="screen active" id="screen-welcome">
-  <div class="badge">Limited Spot — Apply Now</div>
-  <h1 class="wtitle">Join The Farmers Who Are Finally <span>Building Profitable Ponds</span></h1>
+
+  <!-- HERO — image is first thing seen, badge + title overlay it -->
+  <div class="hero-wrap">
+    <img src="https://res.cloudinary.com/dmcurkcnk/image/upload/q_auto/f_auto/w_640/v1781663636/FB_IMG_17129486227500586_lvwii5.jpg"
+         alt="Sabii Farms – Profitable Pond Program"
+         class="hero-bg"
+         fetchpriority="high"
+         decoding="async"
+         width="640">
+    <div class="hero-overlay"></div>
+    <div class="hero-text">
+      <div class="badge">Limited Spot — Apply Now</div>
+      <h1 class="wtitle">Join The Farmers Who Are Finally <span>Building Profitable Ponds</span></h1>
+    </div>
+  </div>
 
   <p class="wsub">Sabii Farms is sponsoring one serious catfish farmer with a fully paid spot inside the <strong>Profitable Pond Program</strong> (₦120,000 value).<br><br>The selected farmer will receive the same guidance, support, and transformation that paying members are already experiencing.</p>
 
